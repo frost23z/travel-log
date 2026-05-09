@@ -1,4 +1,3 @@
-// @ts-check
 import antfu from "@antfu/eslint-config"
 
 import withNuxt from "./.nuxt/eslint.config.mjs"
@@ -16,7 +15,7 @@ export default withNuxt(
         },
         ignores: [
             ".pnpm-store/**",
-            "**/migrations/*",
+            "**/migrations/**",
         ],
     }, {
         rules: {
@@ -39,12 +38,8 @@ export default withNuxt(
         files: ["**/*.vue"],
         rules: {
             "vue/max-attributes-per-line": ["error", {
-                singleline: {
-                    max: 2,
-                },
-                multiline: {
-                    max: 1,
-                },
+                singleline: { max: 2 },
+                multiline: { max: 1 },
             }],
         },
     }, {
@@ -55,6 +50,11 @@ export default withNuxt(
                     rootDir: ".",
                 },
             }],
+        },
+    }, {
+        files: ["**/*.yml", "**/*.yaml"],
+        rules: {
+            "yml/indent": ["error", 2],
         },
     }),
 )
