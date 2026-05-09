@@ -1,4 +1,6 @@
 import antfu from "@antfu/eslint-config"
+import betterTailwind from "eslint-plugin-better-tailwindcss"
+import { getDefaultSelectors } from "eslint-plugin-better-tailwindcss/defaults"
 
 import withNuxt from "./.nuxt/eslint.config.mjs"
 
@@ -17,6 +19,26 @@ export default withNuxt(
             ".pnpm-store/**",
             "**/migrations/**",
         ],
+    }, {
+        // better-tailwindcss — apply to all files that can contain classes
+        plugins: {
+            "better-tailwindcss": betterTailwind,
+        },
+        settings: {
+            "better-tailwindcss": {
+                entryPoint: "app/assets/css/main.css",
+                selectors: [
+                    ...getDefaultSelectors(),
+                    { kind: "attribute", name: "^ui$", match: [{ type: "objectValues" }] },
+                ],
+            },
+        },
+        rules: {
+            ...betterTailwind.configs.recommended.rules,
+            "better-tailwindcss/enforce-consistent-line-wrapping": ["warn", {
+                printWidth: 100,
+            }],
+        },
     }, {
         rules: {
             "ts/no-redeclare": "off",
