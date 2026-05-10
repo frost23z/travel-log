@@ -1,0 +1,26 @@
+// composables/useAuth.ts
+import { createAuthClient } from "better-auth/vue"
+
+const authClient = createAuthClient()
+
+export const useAuthStore = defineStore("auth", () => {
+    const session = authClient.useSession()
+    const user = computed(() => session.value.data?.user)
+    const loading = computed(() => session.value.isPending || session.value.isRefetching)
+    const error = computed(() => session.value.error)
+
+    async function signInSocial() {
+        await authClient.signIn.social({
+            provider: "github",
+            callbackURL: `/dashboard`,
+            errorCallbackURL: "/api/auth/error",
+        })
+    }
+
+    async function signOut() {
+        await authClient.signOut()
+        navigateTo("/")
+    }
+
+    return { user, loading, error, signIn: signInSocial, signOut }
+})
