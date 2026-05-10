@@ -3,7 +3,7 @@ import type { z, ZodObject, ZodRawShape } from "zod"
 
 export function parseEnv<T extends ZodRawShape>(
     schema: ZodObject<T>,
-    env: Record<string, string | undefined> = process.env,
+    env: Record<string, unknown | undefined> = process.env,
 ): z.infer<ZodObject<T>> {
     const result = schema.safeParse(env)
 

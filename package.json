@@ -4,7 +4,11 @@
     "private": true,
     "scripts": {
         "build": "nuxt build",
-        "dev": "nuxt dev",
+        "dev": "concurrently \"nuxt dev\" \"pnpm dev:db\" \"drizzle-kit studio\"",
+        "dev:db": "turso dev --db-file local.db",
+        "dev:db:reset": "rm -f local.db* && pnpm dev:db",
+        "dev:db:gen": "drizzle-kit generate",
+        "dev:db:migrate": "drizzle-kit migrate",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare",
@@ -13,8 +17,11 @@
         "prepare": "husky"
     },
     "dependencies": {
+        "@libsql/client": "^0.17.3",
         "@nuxt/eslint": "1.15.2",
         "@nuxt/ui": "^4.7.1",
+        "concurrently": "^9.2.1",
+        "drizzle-orm": "^0.45.2",
         "nuxt": "^4.4.4",
         "tailwindcss": "^4.2.4",
         "vue": "^3.5.33",
@@ -25,6 +32,7 @@
         "@antfu/eslint-config": "^8.2.0",
         "@iconify-json/tabler": "^1.2.34",
         "@types/node": "^25.6.2",
+        "drizzle-kit": "^0.31.10",
         "eslint": "^10.3.0",
         "eslint-plugin-better-tailwindcss": "^4.5.0",
         "eslint-plugin-format": "^2.0.1",
