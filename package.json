@@ -9,7 +9,6 @@
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare",
-
         "db:local": "turso dev --db-file local.db",
         "db:reset": "rm -f local.db*",
         "db:push": "drizzle-kit push",
@@ -17,7 +16,6 @@
         "db:mg": "drizzle-kit migrate",
         "db:std": "drizzle-kit studio",
         "db:auth:gen": "pnpm dlx auth@latest generate --config ./server/utils/auth.ts --output ./server/db/schema/auth-gen.ts",
-
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "prepare": "husky"
@@ -26,10 +24,12 @@
         "@libsql/client": "^0.17.3",
         "@nuxt/eslint": "1.15.2",
         "@nuxt/ui": "^4.7.1",
+        "@pinia/nuxt": "^0.11.3",
         "better-auth": "^1.6.10",
         "concurrently": "^9.2.1",
         "drizzle-orm": "^0.45.2",
         "nuxt": "^4.4.4",
+        "pinia": "^3.0.4",
         "tailwindcss": "^4.3.0",
         "vue": "^3.5.34",
         "vue-router": "^5.0.6",
