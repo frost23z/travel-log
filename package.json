@@ -18,11 +18,13 @@
         "nuxt": "^4.4.4",
         "tailwindcss": "^4.2.4",
         "vue": "^3.5.33",
-        "vue-router": "^5.0.6"
+        "vue-router": "^5.0.6",
+        "zod": "^4.4.3"
     },
     "devDependencies": {
         "@antfu/eslint-config": "^8.2.0",
         "@iconify-json/tabler": "^1.2.34",
+        "@types/node": "^25.6.2",
         "eslint": "^10.3.0",
         "eslint-plugin-better-tailwindcss": "^4.5.0",
         "eslint-plugin-format": "^2.0.1",
