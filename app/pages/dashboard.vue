@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { signOut, useSession } from "~/utils/auth-client"
+
 const router = useRouter()
 const { data: session, isPending } = await useSession(useFetch)
 
 async function handleSignOut() {
-    await authClient.signOut({
+    await signOut({
         fetchOptions: {
             onSuccess() {
                 router.push("/login")

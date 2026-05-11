@@ -7,7 +7,7 @@
         "dev:all": "concurrently \"nuxt dev\" \"pnpm db:local\" \"drizzle-kit studio\"",
         "build": "nuxt build",
         "generate": "nuxt generate",
-        "preview": "nuxt preview",
+        "preview": "concurrently \"nuxt preview\" \"pnpm db:local\"",
         "postinstall": "nuxt prepare",
         "db:local": "turso dev --db-file local.db",
         "db:reset": "rm -f local.db*",
