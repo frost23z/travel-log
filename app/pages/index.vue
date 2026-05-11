@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type { ButtonProps } from "@nuxt/ui"
 
-const links = ref<ButtonProps[]>([
+definePageMeta({ auth: false })
+
+const links: ButtonProps[] = [
     {
         label: "Get started",
         to: "/docs/getting-started",
@@ -14,7 +16,7 @@ const links = ref<ButtonProps[]>([
         variant: "subtle",
         trailingIcon: "i-lucide-arrow-right",
     },
-])
+]
 </script>
 
 <template>

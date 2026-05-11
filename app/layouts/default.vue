@@ -1,18 +1,20 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from "@nuxt/ui"
 
+import { signOut, useSession } from "~/utils/auth-client"
+
 const year = new Date().getFullYear()
 
-const useAuth = useAuthStore()
+const { data: session, isPending } = await useSession(useFetch)
 
-const user = useAuth.user
+const user = computed(() => session.value?.user)
 
-const items = ref<DropdownMenuItem[][]>([
+const items = computed<DropdownMenuItem[][]>(() => [
     [
         {
-            label: user?.name,
+            label: user.value?.name,
             avatar: {
-                src: user?.image || undefined,
+                src: user.value?.image || undefined,
                 loading: "lazy",
             },
             type: "label",
@@ -35,8 +37,9 @@ const items = ref<DropdownMenuItem[][]>([
             icon: "i-lucide-log-out",
             color: "error",
             kbds: ["shift", "meta", "q"],
-            onSelect: () => {
-                useAuth.signOut()
+            onSelect: async () => {
+                await signOut()
+                navigateTo("/")
             },
         },
     ],
@@ -67,8 +70,28 @@ const items = ref<DropdownMenuItem[][]>([
                         aria-label="GitHub"
                     />
                 </UTooltip>
-                <UDropdownMenu v-if="useAuth.user" :items="items">
-                    <UAvatar :src="user?.image || undefined" :alt="user?.name" />
+                <template v-if="isPending">
+                    <UButton
+                        loading
+                        variant="ghost"
+                        color="neutral"
+                    />
+                </template>
+                <template v-else>
+                    <UDropdownMenu v-if="user" :items="items">
+                        <UAvatar :src="user.image || undefined" :alt="user.name" />
+                    </UDropdownMenu>
+                    <UButton
+                        v-else
+                        color="primary"
+                        variant="solid"
+                        to="/login"
+                    >
+                        Sign In
+                    </UButton>
+                </template>
+                <!-- <UDropdownMenu v-if="user" :items="items">
+                    <UAvatar :src="user.image || undefined" :alt="user.name" />
                 </UDropdownMenu>
                 <UButton
                     v-else
@@ -77,7 +100,7 @@ const items = ref<DropdownMenuItem[][]>([
                     to="/login"
                 >
                     Sign In
-                </UButton>
+                </UButton> -->
             </template>
         </UHeader>
 
